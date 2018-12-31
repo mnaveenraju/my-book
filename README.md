@@ -1,12 +1,12 @@
 # my-book
-# A book which can store all the details financially and personally. with Node, ExpressJS fram work including MongoDB
+A book which can store all the details financially and personally. with Node, ExpressJS fram work including MongoDB
 
-# make sure MongoDb installed locally or change config
+make sure MongoDb installed locally or change config
 
-# install all dependencies
+install all dependencies
 npm install
 
-# Run server
+Run server
 npm start or node .
 
 
