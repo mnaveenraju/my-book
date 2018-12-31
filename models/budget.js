@@ -1,6 +1,7 @@
 'use strict';
 const mongoose  = require('mongoose');
 const Schema    = mongoose.Schema;
+const joi       = require('joi');
 
 let budgetSchema = new Schema({
     type: {
@@ -25,6 +26,7 @@ let budgetSchema = new Schema({
     updatedBy: String
 });
 
+/*
 budgetSchema.pre('save', (next) => {    
     if (this.isNew) {
         this.createdAt = new Date();
@@ -34,6 +36,20 @@ budgetSchema.pre('save', (next) => {
     }
     next()   
 });
+*/
 
 mongoose.model('budget', budgetSchema);
 
+let validateBudget = {
+    create: {
+        body: joi.object().keys({
+            type: joi.string().allow('INCOME', 'EXPENSE').required(),
+            description: joi.string(),
+            amount: joi.number().min(0),
+            date: joi.date().required(),
+            category: joi.string().required()
+        })
+    }
+}
+
+module.exports= validateBudget;

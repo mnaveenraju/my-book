@@ -1,2 +1,2 @@
-module.exports  = require('./category');
-module.exports  = require('./budget');
+exports.categoryMdl  = require('./category');
+exports.budgetMdl  = require('./budget');

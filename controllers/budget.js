@@ -7,8 +7,8 @@ let budgetCtrl    = {
     getBudgetList: async (req, cb) => {                
         if (req.headers && req.headers.authValidated) {
             try {
-                let budget = await budgetServ.getBudgetList(req, cb);                
-                return cb.json({status: 200, result  : budget, message : resMsgs.SUCCESS});
+                let budgets = await mongo.models.budget.find();
+                return cb.json({status: 200, result  : budgets, message : resMsgs.SUCCESS});
             } catch(err) {
                 return cb.json({status: 500, message: err.stack});
             }
@@ -27,7 +27,8 @@ let budgetCtrl    = {
                     date        : req.body.date,
                     description : req.body.description
                 });
-                return cb.json({status: 201, result: budget, message : resMsgs.SUCCESS});
+                let result = await mongo.models.budget.create(budget);
+                return cb.json({status: 201, result: result, message : resMsgs.SUCCESS});
             } catch(err) {
                 return cb.json({status: 500, message: err.stack});
             }
