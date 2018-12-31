@@ -1,13 +1,14 @@
 'use strict';
-const categoryServ      = require('../services').categoryServ;
 const utils             = require('../utils/utils');
 const resMsgs           = require('../config/response-messages');
+const categoryMdl       = require('../models').categoryMdl;
+const mongo             = require('mongoose');
 
 let categoryCtrl    = {
     getCategoryList: async (req, cb) => {                
         if (req.headers && req.headers.authValidated) {
             try {
-                let categories = await categoryServ.getCategoryList(req, cb);                
+                let categories = await mongo.models.category.find();
                 return cb.json({status: 200, result  : categories, message : resMsgs.SUCCESS});
             } catch(err) {
                 return cb.json({status: 500, message: err.stack});
@@ -20,10 +21,7 @@ let categoryCtrl    = {
     createCategory: async (req, cb) => {
         if (req.headers && req.headers.authValidated) {
             try {                
-                let result = await categoryServ.createCategory({
-                    name: req.body.name,
-                    description: req.body.description
-                });
+                let result = await mongo.models.category.create(req);
                 return cb.json({status: 201, result: result, message : resMsgs.SUCCESS});
             } catch(err) {
                 return cb.json({status: 500, message: err.stack});

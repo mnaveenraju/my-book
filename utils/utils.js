@@ -15,5 +15,7 @@ module.exports = {
             status  : req.status || 500,
             message : req.message || resMsgs.INT_SERVER_ERROR
         });
-    }
+    },
+    beforeCreate: {createdAt: new Date(), updatedAt: new Date()},
+    beforeUpdate: {updatedAt: new Date()}
 }
